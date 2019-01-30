@@ -59,7 +59,7 @@ class JsonParseCompleted
 //                wphone[i]=jsonObject1.getString("Phone Number");
 //                cost[i]=jsonObject1.getString("Cost");
 //                profitPercent[i]=jsonObject1.getString("Profit Percent");
-//                profit[i]=jsonObject1.getString("Profit");
+//                profit[i]=jsonObject1.getString("Profit");//
                 date[i]=jsonObject1.getString("Date");
             }
         } catch (JSONException e) {
