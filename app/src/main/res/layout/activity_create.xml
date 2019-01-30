@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#fff"
+    android:id="@+id/relative_layout_2">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_cust_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColorHint="#000">
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editText3"
+                    android:hint="Name"
+                    android:inputType="text"
+                    android:paddingTop="12dp"
+                    android:textColor="#000"
+                    android:maxLines="1"
+                    android:maxLength="30"
+                    android:textStyle="normal" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_cust_addr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_input_cust_name"
+                android:layout_marginTop="10dp"
+                android:textColorHint="#000">
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editText4"
+                    android:hint="Address"
+                    android:inputType="text"
+                    android:paddingTop="12dp"
+                    android:textColor="#000"
+                    android:maxLines="1"
+                    android:maxLength="80"
+                    android:textStyle="normal" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/text_input_cust_phno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_input_cust_addr"
+                android:layout_marginTop="10dp"
+                android:textColorHint="#000">
+                <android.support.design.widget.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/editText5"
+                    android:hint="Phone No"
+                    android:inputType="number"
+                    android:paddingTop="12dp"
+                    android:textColor="#000"
+                    android:maxLines="1"
+                    android:maxLength="10"
+                    android:textStyle="normal" />
+            </android.support.design.widget.TextInputLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status :"
+                android:id="@+id/textView21"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:paddingTop="12dp"
+                android:textColor="#000"
+                android:layout_below="@+id/text_input_cust_phno" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/spinner"
+                android:textAlignment="center"
+                android:textColor="#000"
+                android:paddingTop="12dp"
+                android:spinnerMode="dropdown"
+                android:layout_alignTop="@+id/textView21"
+                android:layout_toRightOf="@+id/textView21"
+                android:layout_toEndOf="@+id/textView21"
+                android:layout_alignBottom="@+id/textView21" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Workers Added :"
+                android:id="@+id/textView23"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:paddingTop="12dp"
+                android:textColor="#000"
+                android:layout_below="@+id/textView21" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView24"
+                android:textSize="18sp"
+                android:text="0"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                android:paddingTop="2dp"
+                android:layout_alignTop="@+id/textView23"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order id :"
+                android:id="@+id/textView25"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                android:paddingTop="12dp"
+                android:textColor="#000"
+                android:layout_below="@+id/textView23" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView26"
+                android:textSize="18sp"
+                android:text="0"
+                android:paddingTop="2dp"
+                android:layout_alignBottom="@+id/textView25"
+                android:layout_alignLeft="@+id/textView24"
+                android:layout_alignStart="@+id/textView24" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/button5"
+                android:layout_marginTop="10dp"
+                android:text="Get Order id"
+                android:textColor="#f16f7d"
+                android:padding="16dp"
+                android:clickable="true"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                android:layout_below="@+id/textView26" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/button2"
+                android:layout_marginTop="10dp"
+                android:text="Add Workers"
+                android:textColor="#f16f7d"
+                android:padding="16dp"
+                android:clickable="true"
+                style="@style/Base.TextAppearance.AppCompat.Body1"
+                android:layout_below="@+id/button5" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/button2"
+                android:id="@+id/textView12"
+                android:layout_marginTop="10dp"
+                android:text="* Fields will be disabled after getting\n\torder id."/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_save_2"
+        android:layout_alignBottom="@+id/scrollView"
+        android:layout_alignRight="@+id/scrollView"
+        android:layout_alignEnd="@+id/scrollView" />
+</RelativeLayout>
