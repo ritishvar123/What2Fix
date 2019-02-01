@@ -159,21 +159,24 @@ public class MainActivity extends Activity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (!result.equalsIgnoreCase("N")) {
-                    Toast.makeText(MainActivity.this, "Welcome " + result + " !!", Toast.LENGTH_SHORT).show();
-                    Intent i = new Intent(MainActivity.this, HomeActivity.class);
-                    i.putExtra("Username", ET_USER_NAME.getText().toString());
-                    i.putExtra("Password", ET_USER_PASS.getText().toString());
-                    startActivity(i);
-                    ET_USER_NAME.setText("");
-                    ET_USER_PASS.setText("");
-                    ET_USER_NAME.requestFocus();
-                } else {
-                    Toast.makeText(MainActivity.this, "Invalid Username or Password !!"+result, Toast.LENGTH_SHORT).show();
+                if (result != null) {
+                    if (!result.equalsIgnoreCase("N")) {
+                        Toast.makeText(MainActivity.this, "Welcome " + result + " !!", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(MainActivity.this, HomeActivity.class);
+                        i.putExtra("Username", ET_USER_NAME.getText().toString());
+                        i.putExtra("Password", ET_USER_PASS.getText().toString());
+                        startActivity(i);
+                        ET_USER_NAME.setText("");
+                        ET_USER_PASS.setText("");
+                        ET_USER_NAME.requestFocus();
+                    } else {
+                        Toast.makeText(MainActivity.this, "Invalid Username or Password !!" + result, Toast.LENGTH_SHORT).show();
+                    }
                 }
+                //Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
                 progressDialog.hide();
             }
-        }, 4000);
+        }, 5000);
 
     }
 
