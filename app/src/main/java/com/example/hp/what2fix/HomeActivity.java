@@ -2,6 +2,7 @@ package com.example.hp.what2fix;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -22,6 +23,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    ImageButton imageButton;
     String username, password;
     String[] Tabs = {"Completed", "Progress", "Pending"};
     String[] sortItems = {"A-Z", "Z-A", "Newest first", "Oldest first", "Order Low to High", "Order High to Low"};
@@ -51,8 +55,8 @@ public class HomeActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        imageButton = (ImageButton) findViewById(R.id.fab);
+        imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(HomeActivity.this, Create.class);
@@ -115,7 +119,7 @@ public class HomeActivity extends AppCompatActivity {
 
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
             alertBuilder.setTitle("Sort By");
-            alertBuilder.setSingleChoiceItems(sortItems, -1, new DialogInterface.OnClickListener(){
+            alertBuilder.setSingleChoiceItems(sortItems, 0, new DialogInterface.OnClickListener(){
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Toast.makeText(HomeActivity.this, sortItems[i], Toast.LENGTH_LONG).show();
@@ -138,6 +142,10 @@ public class HomeActivity extends AppCompatActivity {
             ;
             AlertDialog alertDialog = alertBuilder.create();
             alertDialog.show();
+            Button positive = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+            Button negative = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+            positive.setTextColor(Color.parseColor("#014c6f"));
+            negative.setTextColor(Color.parseColor("#014c6f"));
 
         } else if (id == R.id.action_logout) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);

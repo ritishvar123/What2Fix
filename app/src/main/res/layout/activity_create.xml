@@ -150,26 +150,25 @@
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="40dp"
                 android:id="@+id/button5"
                 android:layout_marginTop="10dp"
                 android:text="Get Order id"
-                android:textColor="#f16f7d"
-                android:padding="16dp"
+                android:textColor="#014c6f"
                 android:clickable="true"
+                android:background="@drawable/button_bg"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:layout_below="@+id/textView26" />
 
-
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="40dp"
                 android:id="@+id/button2"
                 android:layout_marginTop="10dp"
                 android:text="Add Workers"
-                android:textColor="#f16f7d"
-                android:padding="16dp"
+                android:textColor="#014c6f"
                 android:clickable="true"
+                android:background="@drawable/button_bg"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:layout_below="@+id/button5" />
 
@@ -184,13 +183,15 @@
         </RelativeLayout>
     </ScrollView>
 
-    <android.support.design.widget.FloatingActionButton
+    <ImageButton
         android:id="@+id/fab2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/circle_button"
         android:src="@drawable/ic_save_2"
-        android:layout_alignBottom="@+id/scrollView"
-        android:layout_alignRight="@+id/scrollView"
-        android:layout_alignEnd="@+id/scrollView" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"/>
+
 </RelativeLayout>

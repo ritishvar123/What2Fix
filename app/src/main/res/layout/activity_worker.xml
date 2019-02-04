@@ -116,13 +116,13 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="150dp"
+                android:layout_height="40dp"
                 android:text="Profit"
                 android:id="@+id/button_profit"
                 android:layout_marginTop="10dp"
-                android:textColor="#f16f7d"
-                android:padding="16dp"
+                android:textColor="#014c6f"
+                android:background="@drawable/login_button"
                 android:clickable="true"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:layout_below="@+id/text_input_worker_per" />
@@ -133,33 +133,35 @@
                 android:id="@+id/textView30"
                 android:layout_marginTop="23dp"
                 android:textSize="18sp"
-                android:text="  --  "
+                android:text="--"
                 android:layout_below="@+id/text_input_worker_per"
-                android:layout_alignParentRight="@+id/button_profit"
-                android:layout_marginLeft="100dp"
+                android:layout_toRightOf="@+id/button_profit"
+                android:layout_marginLeft="30dp"
                 android:maxLines="1" />
 
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
                 android:text="Save"
                 android:id="@+id/button_save"
                 android:layout_marginTop="10dp"
-                android:textColor="#f16f7d"
-                android:padding="16dp"
+                android:textColor="#014c6f"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/button_bg"
                 android:clickable="true"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:layout_below="@+id/button_profit" />
 
-
             <Button
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="250dp"
+                android:layout_height="40dp"
                 android:text="Cancel"
                 android:id="@+id/button_cancel"
                 android:layout_marginTop="10dp"
-                android:textColor="#f16f7d"
-                android:padding="16dp"
+                android:textColor="#014c6f"
+                android:background="@drawable/button_bg"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="2dp"
                 android:clickable="true"
                 style="@style/Base.TextAppearance.AppCompat.Body1"
                 android:layout_below="@+id/button_save" />

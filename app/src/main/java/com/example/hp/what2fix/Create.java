@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -42,7 +43,7 @@ import java.util.Map;
 public class Create extends AppCompatActivity {
     RelativeLayout relativeLayout;
     Button btn_get_order_id, btn_add_worker;
-    FloatingActionButton btn_save_customer;
+    ImageButton btn_save_customer;
     EditText et_customer_name, et_customer_add, et_customer_phone;
     TextView tv_worker_count, tv_order_id;
     Spinner sp;
@@ -74,7 +75,7 @@ public class Create extends AppCompatActivity {
 
         btn_get_order_id = (Button)findViewById(R.id.button5);
         btn_add_worker    = (Button)findViewById(R.id.button2);
-        btn_save_customer     = (FloatingActionButton) findViewById(R.id.fab2);
+        btn_save_customer     = (ImageButton) findViewById(R.id.fab2);
 
         sp = (Spinner)findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(

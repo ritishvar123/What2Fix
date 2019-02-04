@@ -47,8 +47,8 @@ public class MyAdapter extends ArrayAdapter<String>
         tv3= (TextView) customView.findViewById(R.id.date);
 
         tv1.setText("Customer Name:  "+customerName[position]);
-        tv2.setText("Order id:  "+orderId[position]);
-        tv3.setText("Date:  "+date[position]);
+        tv2.setText("\tOrder id:  "+orderId[position]);
+        tv3.setText("\tDate:  "+date[position]);
 
         return customView;
 
