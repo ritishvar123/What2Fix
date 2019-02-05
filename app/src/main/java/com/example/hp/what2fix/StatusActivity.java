@@ -23,17 +23,12 @@ public class StatusActivity extends AppCompatActivity {
         tv_total_payment = (TextView) findViewById(R.id.textView33);
         tv_profit_gain = (TextView) findViewById(R.id.textView34);
         done = (Button)findViewById(R.id.button5);
-
         Intent i = getIntent();
         total_payment = Double.parseDouble(i.getStringExtra("total_pay"));
         profit_gain = Double.parseDouble(i.getStringExtra("total_profit"));
         order = i.getStringExtra("orderId");
-
         tv_total_payment.setText(""+total_payment);
         tv_profit_gain.setText(""+profit_gain);
-
-
-
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,4 +36,6 @@ public class StatusActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

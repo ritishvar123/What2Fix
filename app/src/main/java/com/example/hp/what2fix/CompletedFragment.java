@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.telecom.Call;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -38,6 +39,8 @@ public class CompletedFragment extends Fragment {
     ListView listView;
     ProgressDialog progressDialog;
     ListAdapter myAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
+    static int flag1 = 0;
    /* Boolean isLoaded = false;
 
     @Override
@@ -52,32 +55,45 @@ public class CompletedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_completed, container, false);
-
-            listView = (ListView) v.findViewById(R.id.listView);
-            progressDialog = new ProgressDialog(getContext());
-            progressDialog.setMessage("Loading...");
-            progressDialog.show();
+        listView = (ListView) v.findViewById(R.id.listView);
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_completed);
+        progressDialog = new ProgressDialog(getContext());
+        if (flag1==0){
             fetchData();
-
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            flag1++;
+        } else {
+            myAdapter=new MyAdapter(getContext(),R.layout.item,JsonParseCompleted.orderId,JsonParseCompleted.customerName,JsonParseCompleted.date);
+            listView.setAdapter(myAdapter);
+        }
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     Intent intent = new Intent(getActivity().getBaseContext(), DetailsCustomerCompleted.class);
                     intent.putExtra("position", "" + position);
                     startActivity(intent);
                 }
-            });
+        });
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                /*if (!isOnline()){
+                    Toast.makeText(MainActivity3_Edit_Members_List.this, "Check your internet connection !!", Toast.LENGTH_LONG).show();
+                } else*/
+                fetchData();
+            }
+        });
         return v;
     }
 
-    private void fetchData()
-    {
+    private void fetchData() {
+        swipeRefreshLayout.setRefreshing(true);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
         String url="https://boxinall.in/kshitiz/fetch_completed_customer.php"; // change link
         StringRequest stringRequest= new StringRequest(1, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 jsonParsing(response);
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -85,7 +101,6 @@ public class CompletedFragment extends Fragment {
                 Toast.makeText(getContext(), "Error in response", Toast.LENGTH_LONG).show();
             }
         });
-
         RequestQueue requestQueue= Volley.newRequestQueue(getActivity());
         requestQueue.add(stringRequest);
     }
@@ -95,6 +110,7 @@ public class CompletedFragment extends Fragment {
         jsonParse.jsonTodo();
         myAdapter=new MyAdapter(getContext(),R.layout.item,JsonParseCompleted.orderId,JsonParseCompleted.customerName,JsonParseCompleted.date);
         listView.setAdapter(myAdapter);
+        swipeRefreshLayout.setRefreshing(false);
         progressDialog.hide();
         //createExampleList(JsonParse.customerName, JsonParse.orderId,jsonParse.date, JsonParse.customerName.length);
         /*Collections.sort(mExampleList, new Comparator<ExampleItem>() {

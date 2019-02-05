@@ -6,8 +6,10 @@ import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -45,16 +47,13 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
         imageButton = (ImageButton) findViewById(R.id.fab);
         imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,11 +62,9 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
         Intent i = getIntent();
         username = i.getStringExtra("Username");
         password = i.getStringExtra("Password");
-
     }
 
     @Override
@@ -100,9 +97,7 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.action_refresh){
-
-        } else if (id == R.id.action_sortby) {
+        if (id == R.id.action_sortby) {
             if(JsonParseCompleted.status[0].equals("Completed")){
                 Toast.makeText(HomeActivity.this, "Completed", Toast.LENGTH_SHORT).show();
                 //new CompletedFragment().abc();
@@ -116,14 +111,12 @@ public class HomeActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(HomeActivity.this, "shi nhi h", Toast.LENGTH_SHORT).show();
             }
-
             AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
             alertBuilder.setTitle("Sort By");
             alertBuilder.setSingleChoiceItems(sortItems, 0, new DialogInterface.OnClickListener(){
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     Toast.makeText(HomeActivity.this, sortItems[i], Toast.LENGTH_LONG).show();
-
                 }
             });
             alertBuilder.setCancelable(false)
@@ -138,15 +131,13 @@ public class HomeActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             Toast.makeText(HomeActivity.this, "Cancel", Toast.LENGTH_LONG).show();
                         }
-                    })
-            ;
+                    });
             AlertDialog alertDialog = alertBuilder.create();
             alertDialog.show();
             Button positive = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
             Button negative = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
             positive.setTextColor(Color.parseColor("#014c6f"));
             negative.setTextColor(Color.parseColor("#014c6f"));
-
         } else if (id == R.id.action_logout) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("Do you want to logout ?").setCancelable(false)
@@ -171,11 +162,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
-
         @Override
         public Fragment getItem(int position) {
             switch (position) {
@@ -185,16 +174,33 @@ public class HomeActivity extends AppCompatActivity {
             }
             return null;
         }
-
         @Override
         public int getCount() {
             return 3;
         }
-
         @Override
         public CharSequence getPageTitle(int position) {
             return Tabs[position];
         }
     }
+
+    public class TabListener<T extends Fragment> implements ActionBar.TabListener{
+
+        @Override
+        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+        }
+
+        @Override
+        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+        }
+
+        @Override
+        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
+
+        }
+    }
+
 
 }

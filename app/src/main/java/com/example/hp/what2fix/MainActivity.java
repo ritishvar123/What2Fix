@@ -63,41 +63,26 @@ public class MainActivity extends Activity {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); // for hide keyboard on startup
         //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         relativeLayout = (RelativeLayout) findViewById(R.id.relative_layout_1);
         FORGET_PASS = (TextView) findViewById(R.id.textView17);
         ET_USER_NAME = (EditText) findViewById(R.id.editText);
         ET_USER_PASS = (EditText) findViewById(R.id.editText2);
         progressDialog = new ProgressDialog(MainActivity.this);
-
         login = (Button) findViewById(R.id.button);
-        if (!isOnline()) {
-            Snackbar.make(relativeLayout, "No Internet Connection", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-        }
-
+        if (!isOnline()) Snackbar.make(relativeLayout, "No Internet Connection", Snackbar.LENGTH_LONG).setAction("Action", null).show();
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (isOnline()) {
                     String user = ET_USER_NAME.getText().toString();
                     String pass = ET_USER_PASS.getText().toString();
-
                     if (user.trim().length() == 0 || pass.trim().length() == 0) {
-                        if (user.trim().length() == 0) {
-                            ET_USER_NAME.setError("Enter valid Username");
-                        }
-                        if (pass.trim().length() == 0) {
-                            ET_USER_PASS.setError("Enter valid Password");
-                        }
-                    } else {
-                        BackgroundTask(user, pass);
-                    }
-                } else {
-                    Snackbar.make(view, "No Internet Connection", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                }
+                        if (user.trim().length() == 0) ET_USER_NAME.setError("Enter valid Username");
+                        if (pass.trim().length() == 0) ET_USER_PASS.setError("Enter valid Password");
+                    } else BackgroundTask(user, pass);
+                } else Snackbar.make(view, "No Internet Connection", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
-
         FORGET_PASS.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,23 +90,11 @@ public class MainActivity extends Activity {
                 startActivity(i);
             }
         });
-
-    }
-
-    public boolean isOnline() {
-        ConnectivityManager conMgr = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
-        if (netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()) {
-            return false;
-        }
-        return true;
     }
 
     public void BackgroundTask(final String user, final String pass) {
-
         progressDialog.setMessage("Logging In...");
         progressDialog.show();
-
         String url = "https://boxinall.in/kshitiz/login.php";
         StringRequest stringRequest = new StringRequest(1, url, new Response.Listener<String>() {
             @Override
@@ -131,17 +104,11 @@ public class MainActivity extends Activity {
                     JSONArray jsonArray = jsonObject.getJSONArray("data");
                     JSONObject jsonObject1 = jsonArray.getJSONObject(0);
                     result = jsonObject1.getString("Result");
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
+                } catch (JSONException e) {e.printStackTrace();}
             }
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
+            public void onErrorResponse(VolleyError error) {}
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -149,12 +116,10 @@ public class MainActivity extends Activity {
                 map.put("username", user);
                 map.put("password", pass);
                 return map;
-
             }
         };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -169,59 +134,21 @@ public class MainActivity extends Activity {
                         ET_USER_NAME.setText("");
                         ET_USER_PASS.setText("");
                         ET_USER_NAME.requestFocus();
-                    } else {
-                        Toast.makeText(MainActivity.this, "Invalid Username or Password !!" + result, Toast.LENGTH_SHORT).show();
-                    }
-                }
-                //Toast.makeText(MainActivity.this, result, Toast.LENGTH_SHORT).show();
+                    } else Toast.makeText(MainActivity.this, "Invalid Username or Password !!" + result, Toast.LENGTH_SHORT).show();
+                } else Toast.makeText(MainActivity.this, "Connection error !!", Toast.LENGTH_SHORT).show();
                 progressDialog.hide();
             }
         }, 5000);
-
     }
+
+    public boolean isOnline() {
+        ConnectivityManager conMgr = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+        if (netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()) {
+            return false;
+        }
+        return true;
+    }
+
 
 }
-
-/*
-public void abc() {
-    try {
-        Class.forName("com.mysql.jdbc.Driver");
-        con = DriverManager.getConnection(sqlURL, sqlUser, sqlPass);
-        if (con == null) {
-            z = "No Internet Connection";
-        } else {
-            Statement st = con.createStatement();
-            String query = "SELECT name FROM login WHERE username = '" + strings[0] + "' and password = '" + strings[1] + "';";
-            ResultSet rs = st.executeQuery(query);
-            if (rs.next()) {
-                z = "Welcome " + rs.getString("name") + " !!";
-                isSuccess = true;
-            } else {
-                z = "Invalid username or password";
-                isSuccess = false;
-            }
-            rs.close();
-            con.close();
-        }
-    } catch (SQLException se) {
-    } catch (Exception ex) {
-    }
-
-    //return z;
-
-    @Override
-    protected void onPostExecute (String s){
-        Toast.makeText(MainActivity.this, z, Toast.LENGTH_LONG).show();
-        progressDialog.hide();
-        if (isSuccess) {
-            Intent i = new Intent(MainActivity.this, HomeActivity.class);
-            i.putExtra("Username", ET_USER_NAME.getText().toString());
-            i.putExtra("Password", ET_USER_PASS.getText().toString());
-            startActivity(i);
-            ET_USER_NAME.setText("");
-            ET_USER_PASS.setText("");
-            ET_USER_NAME.requestFocus();
-        }
-    }
-}
-*/

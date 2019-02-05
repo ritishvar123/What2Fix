@@ -17,7 +17,7 @@
         android:id="@+id/textView13"
         android:textSize="50sp"
         android:textAlignment="center"
-        android:textColor="#000"
+        android:textColor="#014c6f"
         android:layout_marginTop="42dp" />
 
     <TextView
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:text="Total Payment :"
         android:id="@+id/textView14"
-        android:textColor="#000"
+        android:textColor="#014c6f"
         android:textSize="25sp"
         android:layout_below="@+id/textView13"
         android:layout_marginTop="60dp"/>
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/textView33"
-        android:textColor="#000"
+        android:textColor="#014c6f"
         android:textSize="25sp"
         android:layout_below="@+id/textView14"
         android:padding="5dp"/>
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:text="Profit Gain :"
         android:id="@+id/textView15"
-        android:textColor="#000"
+        android:textColor="#014c6f"
         android:textSize="25sp"
         android:layout_below="@+id/textView33"
         android:layout_marginTop="10dp" />
@@ -55,23 +55,22 @@
         android:layout_height="wrap_content"
         android:text=""
         android:id="@+id/textView34"
-        android:textColor="#000"
+        android:textColor="#014c6f"
         android:textSize="25sp"
         android:layout_below="@+id/textView15"
         android:padding="5dp"/>
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/button5"
         android:text="Done"
-        android:textColor="#f16f7d"
-        android:padding="16dp"
-        android:clickable="true"
+        android:textColor="#014c6f"
+        android:background="@drawable/button_bg"
         style="@style/Base.TextAppearance.AppCompat.Body1"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="2dp"/>
 
 </RelativeLayout>
