@@ -2,7 +2,10 @@ package com.example.hp.what2fix;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -22,22 +25,12 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public class PendingFragment extends Fragment {
-
     ListView listView2;
     ProgressDialog progressDialog;
     ListAdapter myAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
     static int flag3 = 0;
-  /*  Boolean isLoaded = false;
 
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            isLoaded = true;
-        }
-    }
-*/
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,7 +48,6 @@ public class PendingFragment extends Fragment {
         listView2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    //Toast.makeText(getContext(), JsonParse.phoneNumber[position], Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getActivity().getBaseContext(), DetailsCustomerPending.class);
                     intent.putExtra("position", "" + position);
                     startActivity(intent);
@@ -64,10 +56,9 @@ public class PendingFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                /*if (!isOnline()){
-                    Toast.makeText(MainActivity3_Edit_Members_List.this, "Check your internet connection !!", Toast.LENGTH_LONG).show();
-                } else*/
-                fetchData();
+                if (!isOnline()){
+                    Toast.makeText(getContext(), "Check your internet connection !!", Toast.LENGTH_LONG).show();
+                } else fetchData();
             }
         });
         return v;
@@ -102,4 +93,15 @@ public class PendingFragment extends Fragment {
         swipeRefreshLayout.setRefreshing(false);
         progressDialog.hide();
     }
+
+    public boolean isOnline() {
+        ConnectivityManager conMgr = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+        if (netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()) {
+            return false;
+        }
+        return true;
+    }
+
+
 }

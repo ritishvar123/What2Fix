@@ -26,14 +26,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DetailsCustomerPending extends AppCompatActivity {
-
     TextView tv_customer_name,  tv_cus_order_id;
     EditText tv_customer_addr, tv_customer_phno;
     AutoCompleteTextView tv_customer_status;
     Button btn_show_worker, btn_save_changes, btn_add_workers;
     FloatingActionButton editCustomer;
     Boolean flag = false;
-
     String [] status = {"Completed", "In Progress", "Pending"};
     int position;
 
@@ -42,7 +40,6 @@ public class DetailsCustomerPending extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_cutomer_pending);
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
         tv_customer_name      =  (TextView)findViewById(R.id.textView2);
         tv_customer_addr      =  (EditText) findViewById(R.id.editText12);
         tv_customer_phno      =  (EditText) findViewById(R.id.editText16);
@@ -52,19 +49,15 @@ public class DetailsCustomerPending extends AppCompatActivity {
         btn_save_changes      =  (Button)findViewById(R.id.button9);
         btn_add_workers       =  (Button)findViewById(R.id.button13);
         editCustomer          =  (FloatingActionButton)findViewById(R.id.fab5);
-
         Intent i = getIntent();
         position = Integer.parseInt(i.getStringExtra("position"));
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, status);
         tv_customer_status.setAdapter(adapter);
-
         tv_customer_name.setText(JsonParsePending.customerName[position]);
         tv_customer_addr.setText(JsonParsePending.address[position]);
         tv_customer_phno.setText(JsonParsePending.phoneNumber[position]);
         tv_customer_status.setText(JsonParsePending.status[position]);
         tv_cus_order_id.setText(JsonParsePending.orderId[position]);
-
         tv_customer_addr.setEnabled(false);
         tv_customer_phno.setEnabled(false);
         tv_customer_status.setEnabled(false);
@@ -72,7 +65,6 @@ public class DetailsCustomerPending extends AppCompatActivity {
         tv_customer_phno.setFocusableInTouchMode(false);
         tv_customer_status.setFocusableInTouchMode(false);
         btn_save_changes.setVisibility(View.INVISIBLE);
-
         btn_show_worker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +74,6 @@ public class DetailsCustomerPending extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
         editCustomer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -96,7 +87,6 @@ public class DetailsCustomerPending extends AppCompatActivity {
                 flag = true;
             }
         });
-
         btn_add_workers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,12 +95,9 @@ public class DetailsCustomerPending extends AppCompatActivity {
                 startActivity(i);
             }
         });
-
-
         btn_save_changes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //save all records in databases
                 String address = tv_customer_addr.getText().toString();
                 String phno    = tv_customer_phno.getText().toString();
                 String wStatus  = tv_customer_status.getText().toString();
@@ -133,29 +120,23 @@ public class DetailsCustomerPending extends AppCompatActivity {
                     tv_customer_phno.setFocusableInTouchMode(false);
                     tv_customer_status.setFocusableInTouchMode(false);
                     btn_save_changes.setVisibility(View.INVISIBLE);
-
-                   Toast.makeText(DetailsCustomerPending.this,JsonParsePending.orderId[position], Toast.LENGTH_LONG ).show();
+                    Toast.makeText(DetailsCustomerPending.this,JsonParsePending.orderId[position], Toast.LENGTH_LONG ).show();
                     updateCustomer(JsonParsePending.orderId[position], address, phno, wStatus);
                     Toast.makeText(DetailsCustomerPending.this, "Updated Successfully" , Toast.LENGTH_SHORT).show();
                     flag = false;
                 }
             }
         });
-
     }
 
-    public void updateCustomer(final String orderid, final String address, final String phno, final String status) {
 
+    public void updateCustomer(final String orderid, final String address, final String phno, final String status) {
         String url="https://boxinall.in/kshitiz/updateCustomer.php";
         StringRequest stringRequest=new StringRequest(1, url, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        }){
+            public void onResponse(String response) {}
+        }, new Response.ErrorListener() {@Override public void onErrorResponse(VolleyError error) {}}
+        ){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> map=new HashMap<>();
@@ -193,4 +174,6 @@ public class DetailsCustomerPending extends AppCompatActivity {
         }else
             finish();
     }
+
+
 }

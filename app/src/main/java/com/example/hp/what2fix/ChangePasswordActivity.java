@@ -45,23 +45,18 @@ public class ChangePasswordActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
-
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true); // for back button
-
-        et_email = (EditText)findViewById(R.id.editText13);
-        et_new_pass = (EditText)findViewById(R.id.editText14);
-        et_confirm_pass = (EditText)findViewById(R.id.editText15);
-        btn_save_changes = (Button)findViewById(R.id.button7);
-        btn_cancel = (Button)findViewById(R.id.button6);
+        et_email = (EditText) findViewById(R.id.editText13);
+        et_new_pass = (EditText) findViewById(R.id.editText14);
+        et_confirm_pass = (EditText) findViewById(R.id.editText15);
+        btn_save_changes = (Button) findViewById(R.id.button7);
+        btn_cancel = (Button) findViewById(R.id.button6);
         progressDialog = new ProgressDialog(this);
-
         btn_save_changes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String email = et_email.getText().toString();
                 String new_pass = et_new_pass.getText().toString();
                 String confirm_pass = et_confirm_pass.getText().toString();
-
                 if (email.trim().length() == 0 || new_pass.trim().length() == 0 || confirm_pass.trim().length() == 0) {
                     if (email.trim().length() == 0)
                         et_email.setError("Field can't Empty");
@@ -82,7 +77,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 }
             }
         });
-
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,43 +85,41 @@ public class ChangePasswordActivity extends AppCompatActivity {
         });
     }
 
-    void BackgroundTask (final String email, final String new_pass){
-
+    void BackgroundTask(final String email, final String new_pass) {
         progressDialog.setMessage("Saving...");
         progressDialog.show();
-
-        String url="https://boxinall.in/kshitiz/forgotpassword.php";
-        StringRequest stringRequest=new StringRequest(1, url, new Response.Listener<String>() {
+        String url = "https://boxinall.in/kshitiz/forgotpassword.php";
+        StringRequest stringRequest = new StringRequest(1, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
-                    JSONObject jsonObject= new JSONObject(response);
-                    JSONArray jsonArray=jsonObject.getJSONArray("data");
-                    JSONObject  jsonObject1=jsonArray.getJSONObject(0);
-                    result=jsonObject1.getString("Result");
-                } catch (JSONException e) {}
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("data");
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(0);
+                    result = jsonObject1.getString("Result");
+                } catch (JSONException e) {
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
             }
-        }){
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
-                HashMap<String,String> map=new HashMap<>();
-                map.put("Email",email);
-                map.put("Password",new_pass);
+                HashMap<String, String> map = new HashMap<>();
+                map.put("Email", email);
+                map.put("Password", new_pass);
                 return map;
             }
         };
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
-
-        Handler handler=new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(result.equalsIgnoreCase("Success")) {
+                if (result.equalsIgnoreCase("Success")) {
                     Toast.makeText(ChangePasswordActivity.this, "Password Changed Successfully !", Toast.LENGTH_SHORT).show();
                     finish();
                 } else {
@@ -136,9 +128,11 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 progressDialog.hide();
 
             }
-        },4000);
-        }
+        }, 4000);
+    }
 
+
+}
     /*try {
         Class.forName("com.mysql.jdbc.Driver");
         con = DriverManager.getConnection(sqlURL, sqlUser, sqlPass);
@@ -166,4 +160,3 @@ public class ChangePasswordActivity extends AppCompatActivity {
             con.close();
         }
     } catch(SQLException se){}*/
-}

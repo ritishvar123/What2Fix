@@ -4,9 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JsonParseWorker
-{
-
+public class JsonParseWorker {
     public static String [] workerName;
     public static String [] work;
     public static String [] wphone;
@@ -15,13 +13,13 @@ public class JsonParseWorker
     public static String [] profit;
     public static String [] date;
     String json;
+
     public JsonParseWorker( String response)
     {
         this.json=response;
     }
 
-    public void jsonTodoWorker()
-    {
+    public void jsonTodoWorker() {
         try {
             JSONObject jsonObject=new JSONObject(json);
             JSONArray jsonArray=jsonObject.getJSONArray("data");
@@ -32,9 +30,7 @@ public class JsonParseWorker
             profitPercent=new String[jsonArray.length()];
             profit=new String[jsonArray.length()];
             date=new String[jsonArray.length()];
-
-            for(int i=0;i<jsonArray.length();i++)
-            {
+            for(int i=0;i<jsonArray.length();i++) {
                 JSONObject jsonObject1=jsonArray.getJSONObject(i);
                 workerName[i]=jsonObject1.getString("Worker Name");
                 work[i]=jsonObject1.getString("Work");
@@ -44,12 +40,7 @@ public class JsonParseWorker
                 profit[i]=jsonObject1.getString("Profit");
                 date[i]=jsonObject1.getString("Date");
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-
-
+        } catch (JSONException e) {e.printStackTrace();}
     }
 
 

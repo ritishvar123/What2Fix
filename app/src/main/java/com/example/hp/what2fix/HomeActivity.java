@@ -34,14 +34,12 @@ import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class HomeActivity extends AppCompatActivity {
-
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     ImageButton imageButton;
     String username, password;
     String[] Tabs = {"Completed", "Progress", "Pending"};
     String[] sortItems = {"A-Z", "Z-A", "Newest first", "Oldest first", "Order Low to High", "Order High to Low"};
-    //public static String customers[];
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,10 +98,6 @@ public class HomeActivity extends AppCompatActivity {
         if (id == R.id.action_sortby) {
             if(JsonParseCompleted.status[0].equals("Completed")){
                 Toast.makeText(HomeActivity.this, "Completed", Toast.LENGTH_SHORT).show();
-                //new CompletedFragment().abc();
-                /*CompletedFragment.listView.setAdapter(new MyAdapter
-                        (new CompletedFragment().getContext(), R.layout.item, JsonParse.orderId, customers, JsonParse.date)
-                );*/
             } else if(JsonParseProgress.status[0].equals("In Progress")){
                 Toast.makeText(HomeActivity.this, "In Progress", Toast.LENGTH_SHORT).show();
             } else if(JsonParsePending.status[0].equals("Pending")){
@@ -152,14 +146,14 @@ public class HomeActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
                         }
-                    })
-            ;
+                    });
             AlertDialog close = alert.create();
             close.setTitle("Logout");
             close.show();
         }
         return super.onOptionsItemSelected(item);
     }
+
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -181,24 +175,6 @@ public class HomeActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
             return Tabs[position];
-        }
-    }
-
-    public class TabListener<T extends Fragment> implements ActionBar.TabListener{
-
-        @Override
-        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-        }
-
-        @Override
-        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
-        }
-
-        @Override
-        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-
         }
     }
 

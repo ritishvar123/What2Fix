@@ -12,8 +12,6 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         Thread thread = new Thread(){
             @Override
             public void run() {
@@ -28,6 +26,7 @@ public class StartActivity extends AppCompatActivity {
             }
         };
         thread.start();
-
     }
+
+
 }

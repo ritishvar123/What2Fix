@@ -19,7 +19,6 @@ public class StatusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
-
         tv_total_payment = (TextView) findViewById(R.id.textView33);
         tv_profit_gain = (TextView) findViewById(R.id.textView34);
         done = (Button)findViewById(R.id.button5);

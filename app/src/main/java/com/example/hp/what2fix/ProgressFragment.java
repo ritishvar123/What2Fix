@@ -2,7 +2,10 @@ package com.example.hp.what2fix;
 
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -22,7 +25,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 public class ProgressFragment extends Fragment {
-
     ListView listView3;
     ProgressDialog progressDialog;
     ListAdapter myAdapter;
@@ -54,10 +56,9 @@ public class ProgressFragment extends Fragment {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                /*if (!isOnline()){
-                    Toast.makeText(MainActivity3_Edit_Members_List.this, "Check your internet connection !!", Toast.LENGTH_LONG).show();
-                } else*/
-                fetchData();
+                if (!isOnline()){
+                    Toast.makeText(getContext(), "Check your internet connection !!", Toast.LENGTH_LONG).show();
+                } else fetchData();
             }
         });
         return v;
@@ -91,6 +92,15 @@ public class ProgressFragment extends Fragment {
         listView3.setAdapter(myAdapter);
         swipeRefreshLayout.setRefreshing(false);
         progressDialog.hide();
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager conMgr = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
+        if (netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()) {
+            return false;
+        }
+        return true;
     }
 
 }

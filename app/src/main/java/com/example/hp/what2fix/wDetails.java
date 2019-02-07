@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class wDetails extends AppCompatActivity {
-
     ListView listView4;
     ProgressDialog progressDialog;
     int orderId;
@@ -30,18 +29,14 @@ public class wDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_w_details);
-
         listView4 = (ListView)findViewById(R.id.listView4);
         progressDialog = new ProgressDialog(wDetails.this);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
-
         Intent i = getIntent();
         orderId = Integer.parseInt(i.getStringExtra("OrderId"));
         status  = i.getStringExtra("status");
-
         fetchWorkerData(orderId);
-
         listView4.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
@@ -55,20 +50,14 @@ public class wDetails extends AppCompatActivity {
         });
     }
 
-    private void fetchWorkerData(final int orderId)
-    {
+    private void fetchWorkerData(final int orderId) {
         String url="https://boxinall.in/kshitiz/fetchworker.php";
         StringRequest stringRequest= new StringRequest(1, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
                 jsonParsingWorker(response);
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
+        }, new Response.ErrorListener() {@Override public void onErrorResponse(VolleyError error) {}
         })
         {
             @Override
@@ -77,16 +66,12 @@ public class wDetails extends AppCompatActivity {
                 map.put("OrderId",""+orderId);
                 return  map;
             }
-
         };
-
         RequestQueue requestQueue= Volley.newRequestQueue(wDetails.this);
         requestQueue.add(stringRequest);
-
     }
 
-    private void jsonParsingWorker(String response)
-    {
+    private void jsonParsingWorker(String response) {
         JsonParseWorker jsonParseWorker=new JsonParseWorker(response);
         jsonParseWorker.jsonTodoWorker();
         MyAdapterWorker myAdapterWorker=new MyAdapterWorker(wDetails.this,R.layout.item_worker,JsonParseWorker.workerName,
@@ -94,5 +79,6 @@ public class wDetails extends AppCompatActivity {
         listView4.setAdapter(myAdapterWorker);
         progressDialog.hide();
     }
+
 
 }

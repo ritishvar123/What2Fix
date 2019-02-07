@@ -40,6 +40,8 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.os.Handler;
+
 public class Create extends AppCompatActivity {
     RelativeLayout relativeLayout;
     Button btn_get_order_id, btn_add_worker;
@@ -58,25 +60,20 @@ public class Create extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
-
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN); // hide keyboard
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // for back button
-
         relativeLayout    = (RelativeLayout)findViewById(R.id.relative_layout_2);
         et_customer_name  = (EditText)findViewById(R.id.editText3);
         et_customer_add   = (EditText)findViewById(R.id.editText4);
         et_customer_phone = (EditText)findViewById(R.id.editText5);
         tv_worker_count   = (TextView)findViewById(R.id.textView24);
         tv_order_id       = (TextView)findViewById(R.id.textView26);
-
         customer_name     = et_customer_name.getText().toString();
         customer_add      = et_customer_add.getText().toString();
         customer_phone    = et_customer_phone.getText().toString();
-
         btn_get_order_id = (Button)findViewById(R.id.button5);
         btn_add_worker    = (Button)findViewById(R.id.button2);
         btn_save_customer     = (ImageButton) findViewById(R.id.fab2);
-
         sp = (Spinner)findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_list_item_1, select_type
@@ -99,18 +96,14 @@ public class Create extends AppCompatActivity {
                 }
             }
             @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
+            public void onNothingSelected(AdapterView<?> adapterView) {}
         });
-
         btn_get_order_id.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 customer_name = et_customer_name.getText().toString();
                 customer_add = et_customer_add.getText().toString();
                 customer_phone = et_customer_phone.getText().toString();
-
                 if ( customer_name.trim().length()==0 || customer_add.trim().length()==0 || customer_phone.trim().length()==0 ) {
                     if( customer_name.trim().length()==0 )
                         et_customer_name.setError("Enter valid Name");
@@ -127,16 +120,11 @@ public class Create extends AppCompatActivity {
                         String url = "https://boxinall.in/kshitiz/insertcustomer.php";
                         StringRequest stringRequest = new StringRequest(1, url, new com.android.volley.Response.Listener<String>() {
                             @Override
-                            public void onResponse(String response) {
-
-                            }
+                            public void onResponse(String response) {}
                         }, new com.android.volley.Response.ErrorListener() {
                             @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        }) {
-                            @Override
+                            public void onErrorResponse(VolleyError error) {}
+                        }) {@Override
                             protected Map<String, String> getParams() throws AuthFailureError {
                                 Map<String, String> map = new HashMap<>();
                                 map.put("customerName", customer_name);
@@ -148,8 +136,7 @@ public class Create extends AppCompatActivity {
                         };
                         RequestQueue requestQueue = Volley.newRequestQueue(Create.this);
                         requestQueue.add(stringRequest);
-
-                        android.os.Handler handler = new android.os.Handler();
+                        Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
                             public void run() {
@@ -161,24 +148,16 @@ public class Create extends AppCompatActivity {
                                             JSONObject jsonObject = new JSONObject(response);
                                             JSONArray jsonArray = jsonObject.getJSONArray("data");
                                             order_id = new String[jsonArray.length()];
-                                            //for(int i=0;i<jsonArray.length();i++) {
                                             JSONObject jsonObject1 = jsonArray.getJSONObject(0);
                                             order_id[0] = jsonObject1.getString("OrderId");
                                             tv_order_id.setText(order_id[0]);
                                             order = order_id[0];
-                                            //}
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-
+                                        } catch (JSONException e) {e.printStackTrace();}
                                     }
                                 }, new Response.ErrorListener() {
                                     @Override
-                                    public void onErrorResponse(VolleyError error) {
-
-                                    }
+                                    public void onErrorResponse(VolleyError error) {}
                                 });
-
                                 RequestQueue requestQueue1 = Volley.newRequestQueue(Create.this);
                                 requestQueue1.add(stringRequest1);
                             }
@@ -195,7 +174,6 @@ public class Create extends AppCompatActivity {
                 }
             }
         });
-
         btn_add_worker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -209,11 +187,9 @@ public class Create extends AppCompatActivity {
                 }
             }
         });
-
         btn_save_customer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 customer_name  = et_customer_name.getText().toString();
                 customer_add   = et_customer_add.getText().toString();
                 customer_phone = et_customer_phone.getText().toString();
@@ -229,8 +205,7 @@ public class Create extends AppCompatActivity {
                 } else if (record == null) {
                     Toast.makeText(Create.this, "Select status type", Toast.LENGTH_LONG).show();
                 } else if ( (tv_worker_count.getText().toString()).equals("0") ) {
-                    Snackbar.make(relativeLayout, "Add Atleast 1 worker", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
+                    Snackbar.make(relativeLayout, "Add Atleast 1 worker", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 } else {
                     Intent i3 = new Intent(Create.this, StatusActivity.class);
                     i3.putExtra("total_pay", ""+total_pay);
@@ -243,26 +218,13 @@ public class Create extends AppCompatActivity {
         });
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if ( requestCode == 999 && resultCode == RESULT_OK ){
             String count = data.getStringExtra("count");
             total_pay += Double.parseDouble(data.getStringExtra("total_pay"));
             total_profit += Double.parseDouble(data.getStringExtra("total_profit"));
-
             tv_worker_count.setText(count);
-            /*if ( (tv_worker_count.getText().toString()).equals("0") ) {
-                et_customer_name.setEnabled(true);
-                et_customer_add.setEnabled(true);
-                et_customer_phone.setEnabled(true);
-            }
-            else {
-                et_customer_name.setEnabled(false);
-                et_customer_add.setEnabled(false);
-                et_customer_phone.setEnabled(false);
-
-            }*/
         }
     }
 
@@ -271,7 +233,6 @@ public class Create extends AppCompatActivity {
         customer_name = et_customer_name.getText().toString();
         customer_add = et_customer_add.getText().toString();
         customer_phone = et_customer_phone.getText().toString();
-
         if ( !(customer_name.trim().length()==0 && customer_add.trim().length()==0 && customer_phone.trim().length()==0 ) ) {
             AlertDialog.Builder alert = new AlertDialog.Builder(this);
             alert.setMessage("Discard your changes ?").setCancelable(true)
@@ -296,19 +257,14 @@ public class Create extends AppCompatActivity {
             finish();
     }
 
-    public void deleteExistingRecord()
-    {
+    public void deleteExistingRecord() {
         String url="https://boxinall.in/kshitiz/delete.php";
         StringRequest stringRequest= new StringRequest(1, url, new Response.Listener<String>() {
             @Override
-            public void onResponse(String response) {
-
-            }
+            public void onResponse(String response) {}
         }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
+            public void onErrorResponse(VolleyError error) {}
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -320,5 +276,6 @@ public class Create extends AppCompatActivity {
         RequestQueue requestQueue= Volley.newRequestQueue(Create.this);
         requestQueue.add(stringRequest);
     }
+
 
 }

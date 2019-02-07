@@ -35,22 +35,18 @@ public class WorkerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_worker);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);// for back button
-
         et_worker_name = (EditText)findViewById(R.id.editText7);
         et_worker_work = (EditText)findViewById(R.id.editText8);
         et_worker_phone = (EditText)findViewById(R.id.editText9);
         et_worker_cost = (EditText)findViewById(R.id.editText10);
         et_worker_profit_per = (EditText)findViewById(R.id.editText50);
         tv_profit = (TextView)findViewById(R.id.textView30);
-
         save = (Button)findViewById(R.id.button_save);
         cancel = (Button)findViewById(R.id.button_cancel);
         profit = (Button)findViewById(R.id.button_profit);
-
         Intent i = getIntent();
         worker_count = Integer.parseInt(i.getStringExtra("count"));
         order = i.getStringExtra("orderId");
-
         profit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -66,7 +62,6 @@ public class WorkerActivity extends AppCompatActivity {
                 }
             }
         });
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,7 +71,6 @@ public class WorkerActivity extends AppCompatActivity {
                 worker_cost = et_worker_cost.getText().toString();
                 worker_profit_per = et_worker_profit_per.getText().toString();
                 worker_profit = tv_profit.getText().toString();
-
                 if ( worker_name.trim().length()==0 || worker_work.trim().length()==0 || worker_phone.trim().length()==0 ||
                          worker_cost.trim().length()==0 || worker_profit_per.trim().length()==0 ) {
                     if ( worker_name.trim().length()==0 )
@@ -99,20 +93,13 @@ public class WorkerActivity extends AppCompatActivity {
                             .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-
                                     String url="https://boxinall.in/kshitiz/insertworker.php";
                                     StringRequest stringRequest= new StringRequest(1, url, new Response.Listener<String>() {
                                         @Override
-                                        public void onResponse(String response) {
-
-                                        }
+                                        public void onResponse(String response) {}
                                     }, new Response.ErrorListener() {
-                                        @Override
-                                        public void onErrorResponse(VolleyError error) {
-
-                                        }
-                                    })
-                                    {
+                                        @Override public void onErrorResponse(VolleyError error) {}
+                                    }) {
                                         @Override
                                         protected Map<String, String> getParams() throws AuthFailureError {
                                             Map<String,String> map=new HashMap<>();
@@ -125,16 +112,13 @@ public class WorkerActivity extends AppCompatActivity {
                                             map.put("profit",worker_profit);
                                             return map;
                                         }
-
                                     };
                                     RequestQueue requestQueue= Volley.newRequestQueue(WorkerActivity.this);
                                     requestQueue.add(stringRequest);
-
                                     Toast.makeText(WorkerActivity.this, "Saved Successfully !!",Toast.LENGTH_LONG).show();
                                     worker_count++;
                                     current_cost = Double.parseDouble(et_worker_cost.getText().toString());
                                     current_profit = Double.parseDouble(tv_profit.getText().toString());
-
                                     Intent i = new Intent();
                                     i.putExtra("count",""+worker_count);
                                     i.putExtra("total_pay",""+current_cost);
@@ -148,16 +132,13 @@ public class WorkerActivity extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
                                 }
-                            })
-                    ;
+                            });
                     AlertDialog close = alert.create();
                     close.setTitle("Save");
                     close.show();
                 }
-
             }
         });
-
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -179,12 +160,13 @@ public class WorkerActivity extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
-                        })
-                ;
+                        });
                 AlertDialog close = alert.create();
                 close.setTitle("Cancel");
                 close.show();
             }
         });
     }
+
+
 }

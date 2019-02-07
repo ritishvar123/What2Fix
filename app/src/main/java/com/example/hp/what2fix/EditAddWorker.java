@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EditAddWorker extends AppCompatActivity {
-
     EditText et_add_worker_name, et_add_worker_work, et_add_worker_phno, et_add_worker_cost, et_add_worker_profit_per;
     TextView tv_add_worker_profit;
     Button btn_profit, btn_save, btn_cancel;
@@ -32,21 +31,17 @@ public class EditAddWorker extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_add_worker);
-
         et_add_worker_name        = (EditText)findViewById(R.id.editText25);
         et_add_worker_work        = (EditText)findViewById(R.id.editText26);
         et_add_worker_phno        = (EditText)findViewById(R.id.editText27);
         et_add_worker_cost        = (EditText)findViewById(R.id.editText28);
         et_add_worker_profit_per  = (EditText)findViewById(R.id.editText29);
         tv_add_worker_profit      = (TextView)findViewById(R.id.textView16);
-
         btn_profit = (Button)findViewById(R.id.button_edit_add_profit);
         btn_save = (Button)findViewById(R.id.button_edit_add_save);
         btn_cancel = (Button)findViewById(R.id.button_edit_add_cancel);
-
         Intent i = getIntent();
         order = i.getStringExtra("orderId");
-
         btn_profit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,7 +57,6 @@ public class EditAddWorker extends AppCompatActivity {
                 }
             }
         });
-
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,7 +66,6 @@ public class EditAddWorker extends AppCompatActivity {
                 final String worker_cost       = et_add_worker_cost.getText().toString();
                 final String worker_profit_per = et_add_worker_profit_per.getText().toString();
                 final String worker_profit     = tv_add_worker_profit.getText().toString();
-
                 if ( worker_name.trim().length()==0 || worker_work.trim().length()==0 || worker_phone.trim().length()==0 ||
                         worker_cost.trim().length()==0 || worker_profit_per.trim().length()==0 ) {
                     if ( worker_name.trim().length()==0 )
@@ -89,25 +82,18 @@ public class EditAddWorker extends AppCompatActivity {
                     et_add_worker_phno.setError("Enter valid 10 digits Phone No");
                 } else if(worker_profit.equals("  --  ")){
                     Toast.makeText(EditAddWorker.this, "Profit is not set", Toast.LENGTH_LONG).show();
-                }
-                else {
+                } else {
                     AlertDialog.Builder alert = new AlertDialog.Builder(EditAddWorker.this);
                     alert.setMessage("Save your changes ?").setCancelable(false)
                             .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-
                                     String url="https://boxinall.in/kshitiz/insertworker.php";
                                     StringRequest stringRequest= new StringRequest(1, url, new Response.Listener<String>() {
-                                        @Override
-                                        public void onResponse(String response) {
-
-                                        }
+                                        @Override public void onResponse(String response) {}
                                     }, new Response.ErrorListener() {
                                         @Override
-                                        public void onErrorResponse(VolleyError error) {
-
-                                        }
+                                        public void onErrorResponse(VolleyError error) {}
                                     })
                                     {
                                         @Override
@@ -122,11 +108,9 @@ public class EditAddWorker extends AppCompatActivity {
                                             map.put("profit",worker_profit);
                                             return map;
                                         }
-
                                     };
                                     RequestQueue requestQueue= Volley.newRequestQueue(EditAddWorker.this);
                                     requestQueue.add(stringRequest);
-
                                     Toast.makeText(EditAddWorker.this, "Saved Successfully !!",Toast.LENGTH_LONG).show();
                                     finish();
                                 }
@@ -136,16 +120,12 @@ public class EditAddWorker extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
                                 }
-                            })
-                    ;
+                            });
                     AlertDialog close = alert.create();
                     close.show();
-
                 }
-
             }
         });
-
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -168,7 +148,8 @@ public class EditAddWorker extends AppCompatActivity {
                 close.show();
             }
         });
-
     }
+
+
 }
 

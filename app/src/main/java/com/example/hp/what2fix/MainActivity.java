@@ -51,10 +51,6 @@ public class MainActivity extends Activity {
     Button login;
     ProgressDialog progressDialog;
     String result = null;
-    /* Connection con = null;
-     String sqlURL = "jdbc:mysql://192.168.43.132:3306/bia";
-     String sqlUser = "root";
-     String sqlPass = "";*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
