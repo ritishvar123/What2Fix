@@ -52,7 +52,7 @@ class EntityDate implements Comparable<EntityDate>{
     Address address;
     Phno phno;
     Status status;
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     EntityDate(Name name, Id id, Date date, Address address, Phno phno, Status status) {
         this.name = name;
         this.id = id;
