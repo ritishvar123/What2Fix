@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="5dp"
+    android:paddingTop="10dp"
     tools:context="com.example.hp.what2fix.CompletedFragment">
 
     <android.support.v4.widget.SwipeRefreshLayout

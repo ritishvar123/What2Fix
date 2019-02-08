@@ -10,13 +10,13 @@ public class JsonParseCompleted {
     public static String [] address;
     public static String [] phoneNumber;
     public static String [] status;
-    public static String [] workerName;
+    public static String [] date;
+   /* public static String [] workerName;
     public static String [] work;
     public static String [] wphone;
     public static String [] cost;
     public static String [] profitPercent;
-    public static String [] profit;
-    public static String [] date;
+    public static String [] profit;*/
     public static int size;
     String json;
 

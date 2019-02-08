@@ -58,8 +58,7 @@ public class wDetails extends AppCompatActivity {
                 jsonParsingWorker(response);
             }
         }, new Response.ErrorListener() {@Override public void onErrorResponse(VolleyError error) {}
-        })
-        {
+        }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String,String> map= new HashMap<>();
